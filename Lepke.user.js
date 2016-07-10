@@ -176,7 +176,7 @@ function lepke__get_user() { //moly.js:16
 function lepke__get_menu() { //moly.js:24
 	var mymenu = document.querySelector('#lepke_menu'); //moly.js:25
 	if(mymenu == null) { //moly.js:26
-		var header = document.querySelector('#header_right_menu'); //moly.js:27
+		var header = document.querySelector('#header_right_menu, .toprightmenu'); //moly.js:27
 		assert(header != null,"header != null","moly.js",28); //moly.js:28
 		mymenu = document.createElement('li'); //moly.js:29
 		assert(mymenu != null && mymenu != undefined,"mymenu != null && mymenu != undefined","moly.js",30); //moly.js:30
@@ -539,7 +539,7 @@ function regebbi_peldany__setup() { //mod_regebbi_peldany.js:5
 		if (lepke__check_marker('.lepke_marker_regebbi_peldany', 'Button already exists')) //mod_regebbi_peldany.js:7
 			return; //mod_regebbi_peldany.js:8
 
-		var title_fn = document.querySelector('#main h1.book .fn'); //mod_regebbi_peldany.js:10
+		var title_fn = document.querySelector('[role="main"] h1.book .fn'); //mod_regebbi_peldany.js:10
 		if(lepke__check_real(title_fn, 'Not a real book')) //mod_regebbi_peldany.js:11
 			return; //mod_regebbi_peldany.js:12
 
@@ -579,7 +579,9 @@ function hozzaszolasok__setup() { //mod_hozzaszolasok.js:5
 	if (lepke__check_marker('.lepke_marker_hozzaszolasok', 'Menu item already exists')) //mod_hozzaszolasok.js:6
 		return; //mod_hozzaszolasok.js:7
 
-	var ul = document.querySelector('#user_menu ul'); //mod_hozzaszolasok.js:9
+	var ul = document.querySelector('#user_menu ul, #layout_users_show .sidebox .sidemenu:nth-child(3)'); //mod_hozzaszolasok.js:9
+    if(ul==null)
+        return;
 	assert(ul,"ul","mod_hozzaszolasok.js",10); //mod_hozzaszolasok.js:10
 	ul.appendChild(lepke__createMenuItem( //mod_hozzaszolasok.js:11
 		'Hozzászólások', //mod_hozzaszolasok.js:12
@@ -732,7 +734,8 @@ register_module(new function() { //mod_kukac.js:119
 function kethasab__setup() { //mod_kethasab.js:5
 	if (lepke__check_marker('.lepke_marker_kethasab', 'Profile menu is already modified')) //mod_kethasab.js:6
 		return; //mod_kethasab.js:7
-
+    if(document.querySelector("#main")===null)
+        return;
 	var ul = document.querySelector('#user_menu ul'); //mod_kethasab.js:9
 	assert(ul != null,"ul != null","mod_kethasab.js",10); //mod_kethasab.js:10
 	var table = document.createElement('ul'); //mod_kethasab.js:11
@@ -788,12 +791,12 @@ function link_adder__setup(marker_name,baselink,link_text,addsub,blank,encode) {
 			return; //mod_rukkola.js:26
 
 		var search = ''; //mod_rukkola.js:28
-		var author_links = document.querySelectorAll("#main .authors a"); //mod_rukkola.js:29
+		var author_links = document.querySelectorAll("[role='main'] .authors a"); //mod_rukkola.js:29
 		for(var i=0; i<author_links.length; i++) { //mod_rukkola.js:30
 			search += author_links[i].innerHTML.trim() + ' '; //mod_rukkola.js:31
 		} //mod_rukkola.js:32
 
-		var title_fn = document.querySelector("#main h1.book .fn"); //mod_rukkola.js:34
+		var title_fn = document.querySelector("[role='main'] h1.book .fn"); //mod_rukkola.js:34
 		if(lepke__check_real(title_fn, 'Not a real book')) //mod_rukkola.js:35
 			return; //mod_rukkola.js:36
 
@@ -813,7 +816,7 @@ function link_adder__setup(marker_name,baselink,link_text,addsub,blank,encode) {
 		div.className = 'shop_item lepke_marker lepke_marker_links_'+marker_name; //mod_rukkola.js:51
 		div.querySelector('a').addEventListener("click",function(){logger__log('rukkola');},false); //mod_rukkola.js:52
 
-		var shopbox = document.querySelector("#main .shopbox"); //mod_rukkola.js:54
+		var shopbox = document.querySelector("[role='main'] .shopbox"); //mod_rukkola.js:54
 		assert(shopbox != null,"shopbox != null","mod_rukkola.js",55); //mod_rukkola.js:55
 		shopbox.appendChild(div); //mod_rukkola.js:56
 		console.log('> Done ('+marker_name+')'); //mod_rukkola.js:57
@@ -839,7 +842,9 @@ function fomenu__setup() { //mod_fomenu.js:5
 	if (lepke__check_marker('.lepke_marker_fomenu', 'Main menu is already modified')) //mod_fomenu.js:6
 		return; //mod_fomenu.js:7
 
-	var uls = document.querySelectorAll('#root_menu .simplesidelinks'); //mod_fomenu.js:9
+	var uls = document.querySelectorAll('#root_menu .simplesidelinks, #layout_root_index .root_menu .simplesidelinks');
+    if(uls.length===0)
+        return;
 	assert(uls.length == 2,"uls.length == 2","mod_fomenu.js",10); //mod_fomenu.js:10
 	uls[0].appendChild(lepke__createMenuItem('Molybazár', 'http://moly.hu/molybazar', function(){logger__log('fomenu');}, 'lepke_marker_fomenu')); //mod_fomenu.js:11
 	uls[1].appendChild(lepke__createMenuItem('Molybolt',  'http://molybolt.hu/',      function(){logger__log('fomenu');}, 'lepke_marker_fomenu')); //mod_fomenu.js:12
@@ -865,6 +870,9 @@ register_module(new function() { //mod_fomenu.js:19
 function suti__setup() { //mod_suti.js:5
 	if (lepke__check_marker('.lepke_marker_suti', 'Menu item already exists')) //mod_suti.js:6
 		return; //mod_suti.js:7
+    
+    if(document.querySelector("#main")===null)
+        return;
 
 	GM_addStyle('.toprightmenu > li > a[href="/szerencsesuti"] { display: none; }'); //mod_suti.js:9
 
