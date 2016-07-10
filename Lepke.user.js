@@ -845,7 +845,7 @@ function fomenu__setup() { //mod_fomenu.js:5
 	var uls = document.querySelectorAll('#root_menu .simplesidelinks, #layout_root_index .root_menu .simplesidelinks');
     if(uls.length===0)
         return;
-	assert(uls.length == 2,"uls.length == 2","mod_fomenu.js",10); //mod_fomenu.js:10
+	assert(uls.length >= 2,"uls.length == 2","mod_fomenu.js",10); //mod_fomenu.js:10
 	uls[0].appendChild(lepke__createMenuItem('Molybazár', 'http://moly.hu/molybazar', function(){logger__log('fomenu');}, 'lepke_marker_fomenu')); //mod_fomenu.js:11
 	uls[1].appendChild(lepke__createMenuItem('Molybolt',  'http://molybolt.hu/',      function(){logger__log('fomenu');}, 'lepke_marker_fomenu')); //mod_fomenu.js:12
 	uls[0].appendChild(lepke__createMenuItem('Merítés',   'http://moly.hu/merites',   function(){logger__log('fomenu');}, 'lepke_marker_fomenu')); //mod_fomenu.js:13
