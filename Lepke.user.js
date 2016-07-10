@@ -579,7 +579,7 @@ function hozzaszolasok__setup() { //mod_hozzaszolasok.js:5
 	if (lepke__check_marker('.lepke_marker_hozzaszolasok', 'Menu item already exists')) //mod_hozzaszolasok.js:6
 		return; //mod_hozzaszolasok.js:7
 
-	var ul = document.querySelector('#user_menu ul, #layout_users_show .sidebox .sidemenu:nth-child(3)'); //mod_hozzaszolasok.js:9
+	var ul = document.querySelector('#user_menu ul'); //mod_hozzaszolasok.js:9
     if(ul==null)
         return;
 	assert(ul,"ul","mod_hozzaszolasok.js",10); //mod_hozzaszolasok.js:10
